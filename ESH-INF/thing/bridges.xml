@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="zware"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+	xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+	<!-- Sample Thing Type -->
+	<bridge-type id="bridge">
+		<label>Zware Binding Bridge</label>
+		<description>Sample thing for zware Binding</description>
+
+		<channels>
+			<channel id="ZwareUser" typeId="ZwareUser" />
+		</channels>
+
+		<config-description>
+			<parameter name="usrname" type="text" required="true">
+				<label>UserName</label>
+				<description>This is a sample text configuration parameter.</description>
+			</parameter>
+		
+            <parameter name="passwd" type="text" required="true">
+                <label>Password</label>
+                <description>This is a sample text configuration parameter.</description>
+            </parameter>
+        </config-description>
+
+	</bridge-type>
+
+	<!-- Sample Channel Type -->
+	<channel-type id="ZwareUser">
+		<item-type>Switch</item-type>
+		<label>Zware Binding Channel</label>
+		<description>Sample channel for zware Binding</description>
+	</channel-type>
+
+</thing:thing-descriptions>
