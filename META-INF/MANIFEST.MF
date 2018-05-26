@@ -6,7 +6,7 @@ Bundle-ClassPath:
 Bundle-ManifestVersion: 2
 Bundle-Name: Zware Binding
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
-Bundle-SymbolicName: org.openhab.binding.zware;singleton:=true
+Bundle-SymbolicName: org.openhab.binding.zware
 Bundle-Vendor: openHAB
 Bundle-Version: 2.3.0.qualifier
 Import-Package: 
