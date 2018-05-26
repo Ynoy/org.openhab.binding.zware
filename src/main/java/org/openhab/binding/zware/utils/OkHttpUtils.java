@@ -61,7 +61,7 @@ public class OkHttpUtils {
             // 添加OkHttp3的拦截器
             .writeTimeout(20, TimeUnit.SECONDS).readTimeout(20, TimeUnit.SECONDS).cookieJar(cookieJar).build();;
 
-    public static void postRequest(String urlParams, Map<String, String> mapParams) {
+    public static String postRequest(String urlParams, Map<String, String> mapParams) {
         // 创建登陆的表单
         FormBody loginBody = new FormBody.Builder().add("usrname", "sigma").add("passwd", "sigmadesigns").build();// 账号密码自己填
 
@@ -122,11 +122,13 @@ public class OkHttpUtils {
                 String data = attentionResponse.body().string();
                 // 测试
                 System.out.println(data);
+                return data;
 
             }
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        return null;
     }
 }

@@ -2,7 +2,9 @@ Manifest-Version: 1.0
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: 
  .,
- lib/dom4j-1.6.1.jar
+ lib/dom4j-1.6.1.jar,
+ lib/okhttp-3.9.1.jar,
+ lib/okio-1.13.0.jar
 Bundle-ManifestVersion: 2
 Bundle-Name: Zware Binding
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

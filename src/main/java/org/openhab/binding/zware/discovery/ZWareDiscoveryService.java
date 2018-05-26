@@ -1,3 +1,4 @@
+
 package org.openhab.binding.zware.discovery;
 
 import java.util.HashMap;
@@ -11,12 +12,10 @@ import org.eclipse.smarthome.config.discovery.DiscoveryServiceCallback;
 import org.eclipse.smarthome.core.thing.ThingUID;
 import org.openhab.binding.zware.handler.ZWareBridgeHandler;
 import org.openhab.binding.zware.internal.ZWareBindingConstants;
-import org.openhab.binding.zware.utils.HttpUtils;
+import org.openhab.binding.zware.utils.OkHttpUtils;
 import org.osgi.service.component.annotations.Component;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.hao.httputil.OkHttpUtils;;
 
 @Component(service = DiscoveryService.class, immediate = true, configurationPid = "discovery.zware")
 public class ZWareDiscoveryService extends AbstractDiscoveryService {
@@ -45,12 +44,10 @@ public class ZWareDiscoveryService extends AbstractDiscoveryService {
         // TODO Auto-generated method stub
         String url = ZWareBindingConstants.hosts + ZWareBindingConstants.URL_INCLUDE_EXCLUDE;
         Map<String, String> map = new HashMap<>();
-        HttpUtils httpUtils = new HttpUtils();
-        map.put("cmd", "2");
-        map.put("&", "");
-        String resp = HttpUtils.httpPost(url, null);
 
-        logger.error(HttpUtils.httpPost(ZWNET_GET_NODESLIST, null));
+        map.put("cmd", "2");
+        String resp = OkHttpUtils.postRequest(url, map);
+        logger.error(resp);
         ThingUID thingUID = new ThingUID(ZWareBindingConstants.ZWAVE_THING_UID, "node1");
 
         // Attention: if is already present as thing in the ThingRegistry
@@ -89,7 +86,7 @@ public class ZWareDiscoveryService extends AbstractDiscoveryService {
         public void run() {
             super.run();
             while (true) {
-                String resp = HttpUtils.httpPost(ZWNET_GET_OPERATION, null);
+                String resp = OkHttpUtils.postRequest(ZWNET_GET_OPERATION, null);
                 logger.error(resp);
                 try {
                     Thread.sleep(2000);

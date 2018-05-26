@@ -30,7 +30,7 @@ import org.eclipse.smarthome.core.thing.binding.BaseBridgeHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.zware.internal.ZWareBindingConstants;
 import org.openhab.binding.zware.internal.ZWareConfiguration;
-import org.openhab.binding.zware.utils.HttpUtils;
+import org.openhab.binding.zware.utils.OkHttpUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -73,13 +73,12 @@ public class ZWareBridgeHandler extends BaseBridgeHandler {
         String text = "3";
         String url = ZWareBindingConstants.hosts + ZWareBindingConstants.URL_LOGIN;
         logger.error(url);
-        HttpUtils httpUtils = new HttpUtils();
+
         logger.error(config.getUsrname() + "-------" + config.getPasswrd());
         Map<String, String> map = new HashMap<>();
         map.put(ZWareBindingConstants.UserUsrname, config.getUsrname());
         map.put(ZWareBindingConstants.UserPasswd, config.getPasswrd());
-        String resp = HttpUtils.httpPost(url, map);
-        logger.error(resp);
+        String resp = OkHttpUtils.postRequest(url, map);
         try {
             Document document = DocumentHelper.parseText(resp);
             Element element = document.getRootElement();
