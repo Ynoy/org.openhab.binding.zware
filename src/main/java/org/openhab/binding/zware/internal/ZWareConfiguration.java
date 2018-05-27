@@ -26,6 +26,15 @@ public class ZWareConfiguration {
 
     public String usrname;
     public String passwd;
+    public String hostAddress;
+
+    public String getHostAddress() {
+        return hostAddress;
+    }
+
+    public void setHostAddress(String hostAddress) {
+        this.hostAddress = hostAddress;
+    }
 
     public String getUsrname() {
         return usrname;
@@ -46,6 +55,7 @@ public class ZWareConfiguration {
     @Override
     public String toString() {
         return new ToStringBuilder(this).append(ZWareBindingConstants.UserUsrname, this.getUsrname())
-                .append(ZWareBindingConstants.UserPasswd, this.getPasswrd()).toString();
+                .append(ZWareBindingConstants.UserPasswd, this.getPasswrd())
+                .append(ZWareBindingConstants.HOSTS, this.getHostAddress()).toString();
     }
 }

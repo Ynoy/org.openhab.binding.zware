@@ -39,13 +39,15 @@ public class ZWareBindingConstants {
     // List of ignored devices for Discovery
     public static final Set<String> DISCOVERY_IGNORED_DEVICES = ImmutableSet.of("BatteryPolling");
 
-    public static final String hosts = "http://localhost:808";
-
-    // List of all Channel ids
-    public static final String User = "ZwareUser";
+    // Config
+    public static final String HOSTS = "hostsAddress";
+    public static final String Host = "http://192.168.10.239:808";
 
     public static final String UserUsrname = "usrname";
     public static final String UserPasswd = "passwd";
+
+    // List of all Channel ids
+    public static final String User = "ZwareUser";
 
     /*
      * NETWORK API

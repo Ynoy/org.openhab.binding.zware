@@ -10,28 +10,40 @@
 		<description>Sample thing for zware Binding</description>
 
 		<channels>
-			<channel id="ZwareUser" typeId="ZwareUser" />
+		    <channel id="NodeID" typeId="NodeID" />
+            <channel id="Endpoint" typeId="Endpoint" />
+			<channel id="LibraryType" typeId="LibraryType" />
+			<channel id="ProtocolVersion" typeId="ProtocolVersion" />
+			<channel id="FlirsDevice" typeId="FlirsDevice" />
+			<channel id="SleepingDevice" typeId="SleepingDevice" />
+			
 		</channels>
 
 		<config-description>
+		
+		    <parameter name="hostsAddress" type="text" required="true">
+                <label>Hosts</label>
+                <description>This is a HostsAddress configuration parameter.</description>
+            </parameter>
+            
 			<parameter name="usrname" type="text" required="true">
 				<label>UserName</label>
-				<description>This is a sample text configuration parameter.</description>
+				<description>This is a UserName configuration parameter.</description>
 			</parameter>
 		
             <parameter name="passwd" type="text" required="true">
                 <label>Password</label>
-                <description>This is a sample text configuration parameter.</description>
+                <description>This is a Password configuration parameter.</description>
             </parameter>
         </config-description>
 
 	</bridge-type>
 
 	<!-- Sample Channel Type -->
-	<channel-type id="ZwareUser">
-		<item-type>Switch</item-type>
+	<channel-type id="LibraryType">
+		<item-type>Contant</item-type>
 		<label>Zware Binding Channel</label>
-		<description>Sample channel for zware Binding</description>
+		<description>Sample channel for Zware Binding</description>
 	</channel-type>
 
 </thing:thing-descriptions>

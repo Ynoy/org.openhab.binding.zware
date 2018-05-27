@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.openhab.binding.zware.internal.ZWareBindingConstants;
+import org.openhab.binding.zware.internal.ZWareConfiguration;
 
 import okhttp3.Call;
 import okhttp3.Cookie;
@@ -28,6 +29,8 @@ import okhttp3.Response;
  * @email: xy410257@163.com
  */
 public class OkHttpUtils {
+
+    public static ZWareConfiguration config;
 
     // 初始化Cookie管理器
     static CookieJar cookieJar = new CookieJar() {
@@ -65,7 +68,7 @@ public class OkHttpUtils {
         // 创建登陆的表单
         FormBody loginBody = new FormBody.Builder().add("usrname", "sigma").add("passwd", "sigmadesigns").build();// 账号密码自己填
 
-        Request loginRequest = new Request.Builder().url(ZWareBindingConstants.hosts + ZWareBindingConstants.URL_LOGIN)
+        Request loginRequest = new Request.Builder().url(ZWareBindingConstants.Host + ZWareBindingConstants.URL_LOGIN)
                 .post(loginBody).build();
         // 获取需要提交的CookieStr
         StringBuilder cookieStr = new StringBuilder();

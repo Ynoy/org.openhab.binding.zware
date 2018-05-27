@@ -48,6 +48,7 @@ public class ZWareDiscoveryService extends AbstractDiscoveryService {
         map.put("cmd", "2");
         String resp = OkHttpUtils.postRequest(url, map);
         logger.error(resp);
+
         ThingUID thingUID = new ThingUID(ZWareBindingConstants.ZWAVE_THING_UID, "node1");
 
         // Attention: if is already present as thing in the ThingRegistry

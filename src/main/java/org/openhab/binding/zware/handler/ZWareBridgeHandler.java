@@ -49,7 +49,7 @@ public class ZWareBridgeHandler extends BaseBridgeHandler {
 
     public static final ThingTypeUID SUPPORTED_THING_TYPE = ZWareBindingConstants.THING_TYPE_BRIDGE;
 
-    private ZWareConfiguration config;
+    public static ZWareConfiguration config;
 
     public ZWareBridgeHandler(Bridge bridge) {
         super(bridge);
@@ -71,7 +71,7 @@ public class ZWareBridgeHandler extends BaseBridgeHandler {
     public void initialize() {
         config = getConfigAs(ZWareConfiguration.class);
         String text = "3";
-        String url = ZWareBindingConstants.hosts + ZWareBindingConstants.URL_LOGIN;
+        String url = config.hostAddress + ZWareBindingConstants.URL_LOGIN;
         logger.error(url);
 
         logger.error(config.getUsrname() + "-------" + config.getPasswrd());

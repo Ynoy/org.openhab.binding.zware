@@ -1,4 +1,4 @@
 package org.openhab.binding.zware.config;
 
-public class ZWareRegistration {
+public class ZwareNodeList {
 }
