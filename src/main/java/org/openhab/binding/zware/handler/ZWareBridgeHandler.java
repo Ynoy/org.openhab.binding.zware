@@ -20,14 +20,13 @@ import java.util.Map;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.DocumentHelper;
-import org.dom4j.Element;
 import org.eclipse.smarthome.core.thing.Bridge;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.ThingStatus;
-import org.eclipse.smarthome.core.thing.ThingStatusDetail;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseBridgeHandler;
 import org.eclipse.smarthome.core.types.Command;
+import org.openhab.binding.zware.config.ZwareNodeList;
 import org.openhab.binding.zware.internal.ZWareBindingConstants;
 import org.openhab.binding.zware.internal.ZWareConfiguration;
 import org.openhab.binding.zware.utils.OkHttpUtils;
@@ -51,6 +50,8 @@ public class ZWareBridgeHandler extends BaseBridgeHandler {
 
     public static ZWareConfiguration config;
 
+    ZWayDeviceScan zWayDeviceScan;
+
     public ZWareBridgeHandler(Bridge bridge) {
         super(bridge);
     }
@@ -71,7 +72,7 @@ public class ZWareBridgeHandler extends BaseBridgeHandler {
     public void initialize() {
         config = getConfigAs(ZWareConfiguration.class);
         String text = "3";
-        String url = config.hostAddress + ZWareBindingConstants.URL_LOGIN;
+        String url = ZWareBindingConstants.Host + ZWareBindingConstants.URL_LOGIN;
         logger.error(url);
 
         logger.error(config.getUsrname() + "-------" + config.getPasswrd());
@@ -79,26 +80,31 @@ public class ZWareBridgeHandler extends BaseBridgeHandler {
         map.put(ZWareBindingConstants.UserUsrname, config.getUsrname());
         map.put(ZWareBindingConstants.UserPasswd, config.getPasswrd());
         String resp = OkHttpUtils.postRequest(url, map);
+        logger.error(resp);
+
+        String getNetworkOperation = ZWareBindingConstants.Host
+                + ZWareBindingConstants.URL_GET_CURRENT_NETWORK_OPERATION;
+
+        String respNetworkOperation = OkHttpUtils.postRequest(getNetworkOperation, null);
+        Document zwave = null;
         try {
-            Document document = DocumentHelper.parseText(resp);
-            Element element = document.getRootElement();
-            Element element2 = element.element("login");
-            text = element2.getText();
-            logger.error(text);
-
+            zwave = DocumentHelper.parseText(respNetworkOperation);
         } catch (DocumentException e) {
-            // TODO: handle exception
-            e.getStackTrace();
+            // TODO Auto-generated catch block
+            e.printStackTrace();
         }
-        if (text != null && text.equals("0")) {
-            // TODO: Initialize the thing. If done set status to ONLINE to indicate proper working.
-            // Long running initialization should be done asynchronously in background.
-            updateStatus(ThingStatus.ONLINE);
+        try {
+            ZwareNodeList.getNodeList();
+        } catch (DocumentException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        updateStatus(ThingStatus.ONLINE);
 
-        } else {
-            updateStatus(ThingStatus.OFFLINE, ThingStatusDetail.CONFIGURATION_ERROR,
-                    "Can not access device as username and/or password are invalid");
-        }
+        // zWayDeviceScan.run();
+        // TODO: Initialize the thing. If done set status to ONLINE to indicate proper working.
+        // Long running initialization should be done asynchronously in background.
+
         // Note: When initialization can NOT be done set the status with more details for further
         // analysis. See also class ThingStatusDetail for all available status details.
         // Add a description to give user information to understand why thing does not work
@@ -107,4 +113,26 @@ public class ZWareBridgeHandler extends BaseBridgeHandler {
         // "Can not access device as username and/or password are invalid");
     }
 
+    public class ZWayDeviceScan extends Thread {
+        @Override
+        public void run() {
+            super.run();
+            while (true) {
+
+                try {
+                    ZwareNodeList.getNodeList();
+                } catch (DocumentException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                try {
+                    Thread.sleep(2000);
+                } catch (Exception e) {
+                    // TODO: handle exception
+                    logger.error(e.getStackTrace().toString());
+                }
+
+            }
+        }
+    }
 }

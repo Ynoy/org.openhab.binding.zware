@@ -10,12 +10,12 @@
 		<description>Sample thing for zware Binding</description>
 
 		<channels>
-		    <channel id="NodeID" typeId="NodeID" />
-            <channel id="Endpoint" typeId="Endpoint" />
+		    <!-- <channel id="NodeID" typeId="NodeID" />
+            <channel id="Endpoint" typeId="Endpoint" /> -->
 			<channel id="LibraryType" typeId="LibraryType" />
-			<channel id="ProtocolVersion" typeId="ProtocolVersion" />
+			<!-- <channel id="ProtocolVersion" typeId="ProtocolVersion" />
 			<channel id="FlirsDevice" typeId="FlirsDevice" />
-			<channel id="SleepingDevice" typeId="SleepingDevice" />
+			<channel id="SleepingDevice" typeId="SleepingDevice" /> -->
 			
 		</channels>
 
@@ -41,7 +41,7 @@
 
 	<!-- Sample Channel Type -->
 	<channel-type id="LibraryType">
-		<item-type>Contant</item-type>
+		<item-type>Switch</item-type>
 		<label>Zware Binding Channel</label>
 		<description>Sample channel for Zware Binding</description>
 	</channel-type>

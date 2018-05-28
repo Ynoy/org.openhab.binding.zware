@@ -40,14 +40,14 @@ public class ZWareBindingConstants {
     public static final Set<String> DISCOVERY_IGNORED_DEVICES = ImmutableSet.of("BatteryPolling");
 
     // Config
-    public static final String HOSTS = "hostsAddress";
     public static final String Host = "http://192.168.10.239:808";
 
     public static final String UserUsrname = "usrname";
     public static final String UserPasswd = "passwd";
+    public static final String HOSTS = "hostsAddress";
 
     // List of all Channel ids
-    public static final String User = "ZwareUser";
+    public static final String User = "LibraryType";
 
     /*
      * NETWORK API

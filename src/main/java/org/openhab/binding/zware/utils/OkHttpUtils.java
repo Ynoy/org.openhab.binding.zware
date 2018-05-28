@@ -7,9 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import org.openhab.binding.zware.internal.ZWareBindingConstants;
-import org.openhab.binding.zware.internal.ZWareConfiguration;
-
 import okhttp3.Call;
 import okhttp3.Cookie;
 import okhttp3.CookieJar;
@@ -29,8 +26,6 @@ import okhttp3.Response;
  * @email: xy410257@163.com
  */
 public class OkHttpUtils {
-
-    public static ZWareConfiguration config;
 
     // 初始化Cookie管理器
     static CookieJar cookieJar = new CookieJar() {
@@ -68,8 +63,8 @@ public class OkHttpUtils {
         // 创建登陆的表单
         FormBody loginBody = new FormBody.Builder().add("usrname", "sigma").add("passwd", "sigmadesigns").build();// 账号密码自己填
 
-        Request loginRequest = new Request.Builder().url(ZWareBindingConstants.Host + ZWareBindingConstants.URL_LOGIN)
-                .post(loginBody).build();
+        Request loginRequest = new Request.Builder().url("http://192.168.10.239:808/register/login").post(loginBody)
+                .build();
         // 获取需要提交的CookieStr
         StringBuilder cookieStr = new StringBuilder();
         // 从缓存中获取Cookie
@@ -108,29 +103,49 @@ public class OkHttpUtils {
             cookieStr.append(cookie.name()).append("=").append(cookie.value() + ";");
         }
 
-        // 设置提交的请求
-        FormBody.Builder builder = new FormBody.Builder();
-        // 遍历集合
-        for (String key : mapParams.keySet()) {
-            builder.add(key, mapParams.get(key));
-        }
-        Request attentionRequest = new Request.Builder().url(urlParams).header("Cookie", cookieStr.toString())
-                .post(builder.build()).build();
-        Call attentionCall = client.newCall(attentionRequest);
-        try {
-            // 连接网络
-            Response attentionResponse = attentionCall.execute();
-            if (attentionResponse.isSuccessful()) {
-                // 获取返回的数据
-                String data = attentionResponse.body().string();
-                // 测试
-                System.out.println(data);
-                return data;
-
+        if (mapParams != null) {
+            // 设置提交的请求
+            FormBody.Builder builder = new FormBody.Builder();
+            // 遍历集合
+            for (String key : mapParams.keySet()) {
+                builder.add(key, mapParams.get(key));
             }
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            Request attentionRequest = new Request.Builder().url(urlParams).header("Cookie", cookieStr.toString())
+                    .post(builder.build()).build();
+            Call attentionCall = client.newCall(attentionRequest);
+            try {
+                // 连接网络
+                Response attentionResponse = attentionCall.execute();
+                if (attentionResponse.isSuccessful()) {
+                    // 获取返回的数据
+                    String data = attentionResponse.body().string();
+                    // 测试
+                    System.out.println(data);
+                    return data;
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        } else {
+            FormBody.Builder builder = new FormBody.Builder();
+            Request attentionRequest = new Request.Builder().url(urlParams).header("Cookie", cookieStr.toString())
+                    .post(builder.build()).build();
+            Call attentionCall = client.newCall(attentionRequest);
+            try {
+                // 连接网络
+                Response attentionResponse = attentionCall.execute();
+                if (attentionResponse.isSuccessful()) {
+                    // 获取返回的数据
+                    String data = attentionResponse.body().string();
+                    // 测试
+                    System.out.println(data);
+                    return data;
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         return null;
     }
