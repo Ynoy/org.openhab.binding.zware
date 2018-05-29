@@ -1,10 +1,8 @@
 package org.openhab.binding.zware.handler;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.dom4j.DocumentException;
 import org.eclipse.smarthome.core.thing.Bridge;
 import org.eclipse.smarthome.core.thing.Channel;
 import org.eclipse.smarthome.core.thing.ChannelUID;
@@ -16,7 +14,6 @@ import org.eclipse.smarthome.core.thing.binding.builder.ChannelBuilder;
 import org.eclipse.smarthome.core.thing.binding.builder.ThingBuilder;
 import org.eclipse.smarthome.core.thing.type.ChannelTypeUID;
 import org.eclipse.smarthome.core.types.Command;
-import org.openhab.binding.zware.config.ZwareGetNodeEPList;
 import org.openhab.binding.zware.internal.ZWareBindingConstants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -112,13 +109,4 @@ public class ZWareDeviceHandler extends BaseThingHandler {
         }
     }
 
-    private ArrayList<String> getCommandClass() throws DocumentException {
-        ArrayList<String> commandClassList = new ArrayList<>();
-        ArrayList<ArrayList<String>> nodesLists = ZwareGetNodeEPList.ZwareGetInterfaceList();
-        for (ArrayList<String> nodesList : nodesLists) {
-
-        }
-        return null;
-
-    }
 }

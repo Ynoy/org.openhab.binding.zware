@@ -1,10 +1,27 @@
 package org.openhab.binding.zware.commandclass;
 
 import java.util.ArrayList;
+import java.util.Map;
+
+import org.dom4j.DocumentException;
+import org.openhab.binding.zware.config.ZwareGetNodeEPList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ZwareCommandClass {
 
-    public ArrayList<E>
+    private final Logger logger = LoggerFactory.getLogger(getClass());
+
+    public Map<String, String> getCommandClass() throws DocumentException {
+
+        for (ArrayList<String> zwareNodePropertity : ZwareGetNodeEPList.ZwareGetInterfaceList()) {
+            String commandClass = zwareNodePropertity.get(3);
+            logger.error(commandClass);
+        }
+        return null;
+
+    }
+
     /**
      * 该命令枚举是为了创建channel而准备，让一般CC对应上固定的channelTypeID；
      * 但也不排除个别特殊功能的CC，例如Alarm这种包含多种传感器信息的命令集，像这种命令集
