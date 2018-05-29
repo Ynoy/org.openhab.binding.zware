@@ -1,10 +1,9 @@
 
 package org.openhab.binding.zware.discovery;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.eclipse.smarthome.config.discovery.AbstractDiscoveryService;
 import org.eclipse.smarthome.config.discovery.DiscoveryResult;
@@ -54,22 +53,19 @@ public class ZWareDiscoveryService extends AbstractDiscoveryService {
         logger.error(resp);
         try {
 
-            List<Map<String, String>> maps = ZwareNodeList.getNodeList();
-            for (Map<String, String> mapOne : maps) {
-                Set set = mapOne.entrySet();
-                Map.Entry[] entries = (Map.Entry[]) set.toArray(new Map.Entry[set.size()]);
-                String nodeId;
-                String lables;
-                for (int i = 0; i < entries.length; i++) {
-                    nodeId = entries[i].getKey().toString();
-                    lables = entries[i].getValue().toString();
-                    if (nodeId.equals("1") == false) {
-                        thingUID = new ThingUID(ZWareBindingConstants.ZWAVE_THING_UID, "node" + nodeId);
-                        DiscoveryResult discoveryResult = DiscoveryResultBuilder.create(thingUID).withLabel(lables)
-                                .build();
-                        thingDiscovered(discoveryResult);
-                    }
+            ArrayList<ArrayList<String>> lists = ZwareNodeList.getNodeList();
+            for (ArrayList<String> list : lists) {
+                logger.error("list：" + list);
+
+                String nodeId = list.get(0);
+                String lables = list.get(1);
+
+                if (nodeId.equals("1") == false) {
+                    thingUID = new ThingUID(ZWareBindingConstants.ZWAVE_THING_UID, "node" + nodeId);
+                    DiscoveryResult discoveryResult = DiscoveryResultBuilder.create(thingUID).withLabel(lables).build();
+                    thingDiscovered(discoveryResult);
                 }
+                logger.error(nodeId + lables);
 
             }
         } catch (Exception e) {

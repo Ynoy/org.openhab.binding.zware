@@ -1,10 +1,7 @@
 package org.openhab.binding.zware.config;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 
 import org.dom4j.Attribute;
 import org.dom4j.Document;
@@ -21,7 +18,7 @@ public class ZwareNodeList {
 
     private static String getNodeList = ZWareBindingConstants.Host + ZWareBindingConstants.URL_GET_LIST_NODE;
 
-    public static List<Map<String, String>> getNodeList() throws DocumentException {
+    public static ArrayList<ArrayList<String>> getNodeList() throws DocumentException {
         ArrayList list = new ArrayList();
         String respGetNodeList = OkHttpUtils.postRequest(getNodeList, null);
         logger.error("ZwareNodeList-->respGetNodeList:" + respGetNodeList);
@@ -30,7 +27,7 @@ public class ZwareNodeList {
         Element zwnet = zwave.element("zwnet");
 
         for (Iterator zwnode = zwnet.elementIterator("zwnode"); zwnode.hasNext();) {
-            Map<String, String> map = new HashMap<>();
+            ArrayList list2 = new ArrayList();
             Element zwnode_i = (Element) zwnode.next();
             Attribute id = zwnode_i.attribute("id");
             Attribute dev_categorys = zwnode_i.attribute("category");
@@ -38,9 +35,10 @@ public class ZwareNodeList {
             int dev_category = Integer.parseInt(dev_categorys.getText());
             String category = DeviceCategory.getName(dev_category);
             logger.error("NodeId:" + nodeId);
-            logger.error("dev_category" + category);
-            map.put(nodeId, category);
-            list.add(map);
+            logger.error("dev_category:" + category);
+            list2.add(nodeId);
+            list2.add(category);
+            list.add(list2);
         }
 
         return list;
