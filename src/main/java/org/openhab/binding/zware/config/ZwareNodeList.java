@@ -45,6 +45,14 @@ public class ZwareNodeList {
 
     }
 
+    /**
+     * 针对不同设备的category值进行不同的详细描述，并返回具体信息。
+     *
+     * @author: Honey
+     * @date: 2018年5月29日
+     * @tags:
+     * @email: xy410257@163.com
+     */
     public enum DeviceCategory {
         SENSOR_ALARM(1, "Sensor alarm"),
         ON_OFF_SWITCH(2, "On/off switch"),

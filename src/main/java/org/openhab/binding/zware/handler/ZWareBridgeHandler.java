@@ -39,7 +39,14 @@ import org.slf4j.LoggerFactory;
  *
  * @author CheneyHao - Initial contribution
  */
-
+/**
+ * 继承于OSGI的handler，用来创建一个Zwave的bridgeController。
+ *
+ * @author: Honey
+ * @date: 2018年5月29日
+ * @tags:
+ * @email: xy410257@163.com
+ */
 public class ZWareBridgeHandler extends BaseBridgeHandler {
 
     private final Logger logger = LoggerFactory.getLogger(ZWareBridgeHandler.class);
@@ -75,6 +82,9 @@ public class ZWareBridgeHandler extends BaseBridgeHandler {
         String url = ZWareBindingConstants.Host + ZWareBindingConstants.URL_LOGIN;
         logger.error(url);
 
+        /**
+         * 初始化bridgeController时先登录zwareServer，获取接下来的操作步骤所需要的cookies
+         */
         logger.error(config.getUsrname() + "-------" + config.getPasswrd());
         Map<String, String> map = new HashMap<>();
         map.put(ZWareBindingConstants.UserUsrname, config.getUsrname());
@@ -99,6 +109,7 @@ public class ZWareBridgeHandler extends BaseBridgeHandler {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        // 更新设备的状态为在线
         updateStatus(ThingStatus.ONLINE);
 
         // zWayDeviceScan.run();
